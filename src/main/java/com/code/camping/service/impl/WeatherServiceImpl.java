@@ -26,37 +26,23 @@ public class WeatherServiceImpl implements WeatherService {
 
     @Override
     public List<Weather> getWeatherData() throws Exception {
-        // Membuat objek URL dengan URL yang diberikan
         URL url = new URL(URL_STRING);
-        // Membuka koneksi HTTP ke URL.
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        // Menyetel metode permintaan menjadi GET
         conn.setRequestMethod("GET");
 
-        // Membaca respons dari koneksi
         BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        // Mendeklarasikan variabel untuk membaca setiap baris input
         String inputLine;
-        // Membuat objek StringBuilder untuk menyimpan konten respons
         StringBuilder content = new StringBuilder();
-        // Membaca setiap baris input
         while ((inputLine = in.readLine()) != null) {
-            // Menambahkan baris input ke StringBuilder
             content.append(inputLine);
         }
-        // Menutup BufferedReader
         in.close();
-        // Menutup koneksi HTTP
         conn.disconnect();
 
-        // Mengonversi respons menjadi objek JSON
         JSONObject jsonObject = new JSONObject(content.toString());
-        // Mendapatkan objek data dari JSON
         JSONObject dataObject = jsonObject.getJSONObject("data");
-        // Mendapatkan array parameter dari data
         JSONArray paramsArray = dataObject.getJSONArray("params");
 
-        // Membuat daftar untuk menyimpan objek WeatherData
         List<Weather> weatherDataList = new ArrayList<>();
 
         for (int i = 0; i < paramsArray.length(); i++) {
