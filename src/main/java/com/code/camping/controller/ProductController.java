@@ -32,7 +32,7 @@ public class ProductController {
     private final ProductService product_service;
     private final JwtUtils jwtUtils;
 
-    @PostMapping()
+    @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody ProductRequest request, @RequestHeader(name = "Authorization") String access_token) {
         Claims jwtPayload = jwtUtils.decodeAccessToken(access_token);
         Date currentDate = new Date();

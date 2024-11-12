@@ -13,13 +13,11 @@ import lombok.NoArgsConstructor;
 public class AdminResponse {
 	private String id;
 	private String email;
-	private String password;
 
 	public static AdminResponse fromAdmin(Admin admin) {
 		return AdminResponse.builder()
 				.id(admin.getId())
 				.email(admin.getEmail())
-				.password(admin.getPassword())
 				.build();
 	}
 }

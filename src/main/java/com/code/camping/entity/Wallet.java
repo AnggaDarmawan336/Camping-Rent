@@ -23,7 +23,4 @@ public class Wallet {
     @JoinColumn(name="user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private Set<Transaction> transaction;
 }

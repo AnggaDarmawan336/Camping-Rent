@@ -7,7 +7,5 @@ import lombok.*;
 @NoArgsConstructor
 @Data
 public class LoginUserResponse {
-
     private String accessToken;
-
 }

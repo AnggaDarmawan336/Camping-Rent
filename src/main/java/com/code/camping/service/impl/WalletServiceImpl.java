@@ -43,6 +43,8 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     public Wallet update(WalletRequest request) {
+        Integer hasil = request.getBalance() + getById(request.getId()).getBalance();
+        request.setBalance(hasil);
         return walletRepository.saveAndFlush(request.convert());
     }
 

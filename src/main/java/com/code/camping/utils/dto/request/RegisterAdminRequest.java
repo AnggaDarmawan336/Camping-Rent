@@ -1,6 +1,7 @@
 package com.code.camping.utils.dto.request;
 
 import com.code.camping.entity.Admin;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -18,6 +19,7 @@ public class RegisterAdminRequest {
 	@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,6}$",
 			message = "Please provide a valid email")
 	@NotBlank
+	@Column(unique = true)
 	private String email;
 
 	@NotBlank(message = "Password cannot be blank")

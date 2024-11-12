@@ -35,10 +35,6 @@ public class Transaction {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    @ManyToOne
-    @JoinColumn(name = "walletId", nullable = false)
-    private Wallet wallet;
-
     //waktu pemesanan (Date)
     //waktu pengembalian
     //status

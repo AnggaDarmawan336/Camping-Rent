@@ -12,7 +12,6 @@ public class WalletResponse {
 
     private String id;
     private Integer balance;
-    private String user_id;
 
     public static WalletResponse fromWallet(Wallet wallet){
         String user_id = (wallet.getUser() != null) ? wallet.getUser().getId() : null;
@@ -20,7 +19,6 @@ public class WalletResponse {
         return WalletResponse.builder()
                 .id(wallet.getId())
                 .balance(wallet.getBalance())
-                .user_id(user_id)
                 .build();
     }
 }

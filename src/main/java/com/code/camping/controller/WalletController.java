@@ -32,7 +32,7 @@ public class WalletController {
     private final UserService userService;
     private final AdminService adminService;
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<?> create(@RequestBody WalletRequest request, @RequestHeader(name = "Authorization") String accessToken) {
         
         Claims jwtPayload = jwtUtils.decodeAccessToken(accessToken);
@@ -43,7 +43,7 @@ public class WalletController {
         if (isProductIdJWTequalsProductIdReqParams && isTokenNotYetExpired) {
             Wallet wallet = walletService.create(request);
             WalletResponse response = WalletResponse.fromWallet(wallet);
-            return Res.renderJson(response, "Product ID Retrieved Successfully", HttpStatus.OK);
+            return Res.renderJson(response, "Wallet Top Up Successfully", HttpStatus.OK);
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied or Token expired");
         }
@@ -71,15 +71,15 @@ public class WalletController {
 
     }
 
-    @GetMapping(path = "/id")
-    public ResponseEntity<?> getById(@RequestHeader(name = "Authorization") String accessToken) {
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<?> getById(@RequestHeader(name = "Authorization") String accessToken, @PathVariable String id) {
         Claims jwtPayload = jwtUtils.decodeAccessToken(accessToken);
         Date currentDate = new Date();
-        boolean isProductIdJWTequalsProductIdReqParams = jwtPayload.getSubject().equals(userService.getById(jwtPayload.getSubject()).getId());
+        boolean isProductIdJWTequalsProductIdReqParams = jwtPayload.getSubject().equals(adminService.getById(jwtPayload.getSubject()).getId());
         boolean isTokenNotYetExpired = currentDate.before(jwtPayload.getExpiration());
 
         if (isProductIdJWTequalsProductIdReqParams && isTokenNotYetExpired) {
-            return Res.renderJson(WalletResponse.fromWallet(walletService.fineByUserId(userService.getById(jwtPayload.getSubject()).getId())), "product ID Retrieved Successfully", HttpStatus.OK);
+            return Res.renderJson(WalletResponse.fromWallet(walletService.getById(id)), "product ID Retrieved Successfully", HttpStatus.OK);
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied or Token expired");}
     }

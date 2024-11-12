@@ -89,8 +89,7 @@ public class TransactionController {
 
     }
 
-
-    @GetMapping(path = "/id")
+    @GetMapping(path = "/me")
     public ResponseEntity<?> getById(@RequestHeader(name = "Authorization") String access_token) {
         Claims jwtPayload = jwtUtils.decodeAccessToken(access_token);
         Date currentDate = new Date();String userIdFromToken = jwtPayload.getSubject();
@@ -103,9 +102,6 @@ public class TransactionController {
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied or Token expired");}
     }
-
-
-    
 
     @PutMapping(path = "/update")
     public ResponseEntity<?> update(@RequestHeader(name = "Authorization") String access_token, @RequestBody TransactionRequest request) {
