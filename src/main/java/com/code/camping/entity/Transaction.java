@@ -35,9 +35,4 @@ public class Transaction {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    //waktu pemesanan (Date)
-    //waktu pengembalian
-    //status
-    //cuaca (weater)
-    
 }
